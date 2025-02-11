@@ -21,8 +21,7 @@ public class Main {
         for(int i=0; i<n; i++) {
             input = br.readLine().split(" ");
             for(int j=0; j<m; j++) {
-                arr[i][j] += Integer.parseInt(input[j]);
-                bw.write(arr[i][j] +" ");
+                bw.write(arr[i][j] + Integer.parseInt(input[j]) + " ");
             }
             bw.newLine();
         }
