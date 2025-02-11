@@ -18,14 +18,16 @@ public class Main {
             }
         }
 
-        for(int i=0; i<n; i++) {
+        StringBuilder sb = new StringBuilder();  // StringBuilder 사용
+        for (int i = 0; i < n; i++) {
             input = br.readLine().split(" ");
-            for(int j=0; j<m; j++) {
-                bw.write(arr[i][j] + Integer.parseInt(input[j]) + " ");
+            for (int j = 0; j < m; j++) {
+                sb.append(arr[i][j] + Integer.parseInt(input[j])).append(" ");
             }
-            bw.newLine();
+            sb.append("\n");
         }
-
+        
+        bw.write(sb.toString());
         bw.flush();
         bw.close();
     }
