@@ -1,34 +1,38 @@
 import java.io.*;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+//        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        String[] input = br.readLine().split(" ");
-        int n = Integer.parseInt(input[0]);
-        int m = Integer.parseInt(input[1]);
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
         int[][] arr = new int[n][m];
 
         for(int i=0; i<n; i++) {
-            input = br.readLine().split(" ");
+            st = new StringTokenizer(br.readLine());
             for(int j=0; j<m; j++) {
-                arr[i][j] = Integer.parseInt(input[j]);
+                arr[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
-        StringBuilder sb = new StringBuilder();  // StringBuilder 사용
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            input = br.readLine().split(" ");
+            st = new StringTokenizer(br.readLine());
             for (int j = 0; j < m; j++) {
-                sb.append(arr[i][j] + Integer.parseInt(input[j])).append(" ");
+                int sum = arr[i][j] + Integer.parseInt(st.nextToken());
+                sb.append(sum).append(" ");
             }
             sb.append("\n");
         }
+
+        System.out.println(sb);
         
-        bw.write(sb.toString());
-        bw.flush();
-        bw.close();
+//        bw.write(sb.toString());
+//        bw.flush();
+//        bw.close();
     }
 }
