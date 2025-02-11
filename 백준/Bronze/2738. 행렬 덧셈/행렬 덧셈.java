@@ -9,21 +9,20 @@ public class Main {
         int n = Integer.parseInt(input[0]);
         int m = Integer.parseInt(input[1]);
 
-        int[][] a1 = new int[n][m];
-        int[][] a2 = new int[n][m];
+        int[][] arr = new int[n][m];
 
         for(int i=0; i<n; i++) {
             input = br.readLine().split(" ");
             for(int j=0; j<m; j++) {
-                a1[i][j] = Integer.parseInt(input[j]);
+                arr[i][j] = Integer.parseInt(input[j]);
             }
         }
 
         for(int i=0; i<n; i++) {
             input = br.readLine().split(" ");
             for(int j=0; j<m; j++) {
-                a2[i][j] = Integer.parseInt(input[j]);
-                bw.write(a1[i][j] + a2[i][j]+" ");
+                arr[i][j] += Integer.parseInt(input[j]);
+                bw.write(arr[i][j] +" ");
             }
             bw.newLine();
         }
