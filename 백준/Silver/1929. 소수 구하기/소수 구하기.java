@@ -22,7 +22,7 @@ public class Main {
     }
 
     // 소수 판별
-    private static boolean isPrime(long n) {
+    private static boolean isPrime(int n) {
         // 0, 1
         if (n < 2) {
             return false;
