@@ -23,12 +23,14 @@ public class Main {
                 }
             }
 
-            if (!stack.isEmpty()) isValid = false;
+            if (!stack.isEmpty()) {
+                isValid = false;  
+            } 
             bw.write(isValid ? "YES\n" : "NO\n");
         }
 
         bw.flush();
-        br.close();
         bw.close();
+        br.close();
     }
 }
