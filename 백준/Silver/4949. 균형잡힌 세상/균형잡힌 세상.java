@@ -1,5 +1,5 @@
 import java.io.*;
-import java.util.Stack;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -7,38 +7,48 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         while (true) {
-            String str = br.readLine();
-            if (str.equals(".")) break;
+            Stack<Character> stack = new Stack<>();
 
-            Stack<String> stack = new Stack<>();
+            String input = br.readLine();
 
-            String[] sentence = str.split("");
-            for(String word : sentence){
-                switch (word) {
-                    case ("("):
-                    case ("["):
-                        stack.push(word);
+            if (input.equals(".")) {
+                break;
+            }
+
+            for (char c : input.toCharArray()) {
+                switch (c) {
+                    case '(':
+                    case '[':
+                        stack.push(c);
                         break;
-                    case (")"):
-                        if(!stack.isEmpty() && stack.peek().equals("("))
+                    case ')':
+                        if (!stack.isEmpty() && stack.peek() == '(') {
                             stack.pop();
-                        else stack.push(")");
+                        }
+                        else {
+                            stack.push(c);
+                        }
                         break;
-                    case ("]"):
-                        if(!stack.isEmpty() && stack.peek().equals("["))
+                    case ']':
+                        if (!stack.isEmpty() && stack.peek() == '[') {
                             stack.pop();
-                        else stack.push("]");
+                        }
+                        else {
+                            stack.push(c);
+                        }
                         break;
                 }
             }
-
-            if (stack.empty())
+            if (stack.isEmpty()) {
                 bw.write("yes\n");
-            else
+            }
+            else {
                 bw.write("no\n");
-
-            bw.flush();
+            }
         }
 
+        bw.flush();
+        bw.close();
+        br.close();
     }
 }
