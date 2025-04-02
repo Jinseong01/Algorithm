@@ -7,26 +7,33 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int T = Integer.parseInt(br.readLine());
-        while (T-- > 0) {
-            String s = br.readLine();
+
+
+        for (int i = 0; i < T; i++) {
             Stack<Character> stack = new Stack<>();
-            boolean isValid = true;
+
+            String s = br.readLine();
 
             for (char c : s.toCharArray()) {
-                if (c == '(') stack.push(c);
+                if (c == '(') {
+                    stack.push(c);
+                }
                 else {
                     if (stack.isEmpty()) {
-                        isValid = false;
+                        stack.push(c);
                         break;
                     }
-                    stack.pop();
+                    else {
+                        stack.pop();
+                    }
                 }
             }
-
-            if (!stack.isEmpty()) {
-                isValid = false;  
-            } 
-            bw.write(isValid ? "YES\n" : "NO\n");
+            if (stack.isEmpty()) {
+                bw.write("YES\n");
+            }
+            else {
+                bw.write("NO\n");
+            }
         }
 
         bw.flush();
