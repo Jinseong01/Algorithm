@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
 
         Deque<Integer> deque = new ArrayDeque<>();
 
@@ -26,51 +26,45 @@ public class Main {
                     break;
                 case 3:
                     if (!deque.isEmpty()) {
-                        bw.write(deque.pollFirst() + "\n");
-                    }
-                    else {
-                        bw.write("-1\n");
+                        sb.append(deque.pollFirst()).append("\n");
+                    } else {
+                        sb.append("-1\n");
                     }
                     break;
                 case 4:
                     if (!deque.isEmpty()) {
-                        bw.write(deque.pollLast() + "\n");
-                    }
-                    else {
-                        bw.write("-1\n");
+                        sb.append(deque.pollLast()).append("\n");
+                    } else {
+                        sb.append("-1\n");
                     }
                     break;
                 case 5:
-                    bw.write(deque.size() + "\n");
+                    sb.append(deque.size()).append("\n");
                     break;
                 case 6:
                     if (deque.isEmpty()) {
-                        bw.write("1\n");
-                    }
-                    else {
-                        bw.write("0\n");
+                        sb.append("1\n");
+                    } else {
+                        sb.append("0\n");
                     }
                     break;
                 case 7:
                     if (!deque.isEmpty()) {
-                        bw.write(deque.peekFirst() + "\n");
-                    }
-                    else {
-                        bw.write("-1\n");
+                        sb.append(deque.peekFirst()).append("\n");
+                    } else {
+                        sb.append("-1\n");
                     }
                     break;
                 case 8:
                     if (!deque.isEmpty()) {
-                        bw.write(deque.peekLast() + "\n");
-                    }
-                    else {
-                        bw.write("-1\n");
+                        sb.append(deque.peekLast()).append("\n");
+                    } else {
+                        sb.append("-1\n");
                     }
                     break;
             }
         }
-        bw.flush();
-        bw.close();
-        br.close();
+
+        System.out.print(sb);
     }
 }
