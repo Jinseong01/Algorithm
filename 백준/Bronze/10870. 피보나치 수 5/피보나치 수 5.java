@@ -1,20 +1,23 @@
-import java.util.Scanner;
- 
+import java.util.*;
+
 public class Main {
-	public static void main(String[] args) {
- 
-		Scanner in = new Scanner(System.in);
- 
-		int N = in.nextInt();
- 
-		System.out.println(fibonacci(N));
- 
-	}
- 
-	// 피보나치 함수
-	static int fibonacci(int N) {
-		if (N == 0)	return 0;
-		if (N == 1)	return 1;
-		return fibonacci(N - 1) + fibonacci(N - 2);
-	}
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int N = sc.nextInt();
+
+        System.out.println(fibonacci(N));
+    }
+
+    private static int fibonacci(int n) {
+        if (n == 0) {
+            return 0;
+        }
+        else if (n == 1) {
+            return 1;
+        }
+        else {
+            return fibonacci(n - 2) + fibonacci(n - 1);
+        }
+    }
 }
