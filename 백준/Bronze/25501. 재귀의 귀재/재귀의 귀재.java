@@ -1,26 +1,36 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
 
     static int count;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
-        sc.nextLine(); // 개행 문자 제거
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringBuilder sb = new StringBuilder();
+
+        int T = Integer.parseInt(br.readLine());
 
         for (int i = 0; i < T; i++) {
-            String s = sc.nextLine();
+            String s = br.readLine();
             count = 0;
             int result = recursion(s, 0, s.length() - 1);
-            System.out.println(result + " " + count);
+            sb.append(result).append(" ").append(count).append("\n");
         }
+
+        System.out.println(sb);
     }
 
     public static int recursion(String s, int l, int r) {
         count++;
-        if (l >= r) return 1;
-        else if (s.charAt(l) != s.charAt(r)) return 0;
-        else return recursion(s, l + 1, r - 1);
+        if (l >= r) {
+            return 1;
+        }
+        else if (s.charAt(l) != s.charAt(r)) {
+            return 0;
+        }
+        else {
+            return recursion(s, l + 1, r - 1);
+        }
     }
 }
