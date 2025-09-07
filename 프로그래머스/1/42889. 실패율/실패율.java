@@ -27,13 +27,6 @@ class Solution {
         
         // 3. 실패율 내림차순
         List<Integer> list = new ArrayList<>(failure.keySet());
-        // list.sort((a,b) -> {
-        //     int tmp = failure.get(b).compareTo(failure.get(a));
-        //     if (tmp == 0) {
-        //         return a - b;
-        //     }
-        //     return tmp;
-        // });
         list.sort((a,b) -> failure.get(b).compareTo(failure.get(a)));
         
         // 4. 스테이지 번호 반환
