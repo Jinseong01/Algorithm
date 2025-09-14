@@ -15,11 +15,6 @@ class Solution {
             }
         }
         
-        int sum=0;
-        for (int i: stack) {
-            sum += i;
-        }
-        
-        return sum;
+        return stack.stream().mapToInt(Integer::intValue).sum();
     }
 }
