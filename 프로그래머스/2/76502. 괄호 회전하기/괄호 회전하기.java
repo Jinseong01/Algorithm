@@ -2,49 +2,47 @@ import java.util.*;
 
 class Solution {
     public int solution(String s) {
-        int count = 0;
+        // 1. 괄호끼리 짝을 미리 매칭
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put(')', '(');
+        map.put('}', '{');
+        map.put(']', '[');
         
-        for (int i=0; i<s.length(); i++) {
-            // 1. x만큼 회전한 문자열 구하기
-            String str = rotate(s, i);
+        // 2. 
+        int n = s.length();
+        s += s;
+        int answer = 0;
+        
+        // 3.[0 ~ n-1]만큼 회전
+        // '회전'을 구현하지 않고 문자열 이어붙이고 1칸씩 뒤로 밀면서 판단
+        A : for (int i=0; i<n; i++) {
+            Stack<Character> stack = new Stack<>();
             
-            // 2. 해당 문자열이 올바른 괄호 문자열인지 판단 후, 카운트   
-            if (isRight(str)) {
-                count++;
-            }
-        }
-        
-        
-        return count;
-    }
-    
-    public static String rotate(String s, int x) {
-        StringBuilder sb = new StringBuilder();
-        
-        sb.append(s.substring(x, s.length()));
-        
-        sb.append(s.substring(0, x));
-        
-        return sb.toString();
-    }
-    
-    public boolean isRight(String s) {
-        Stack<Character> stack = new Stack<>();
-        
-        for (char c : s.toCharArray()) {
-            if (c=='(' || c=='[' || c=='{') {
-                stack.push(c);
-            }
-            else {
-                // 스택이 비었거나 짝이 맞지 않으면 false
-                if (stack.isEmpty() ||
-                    c==')' && !(stack.pop() == '(') ||
-                    c==']' && !(stack.pop() == '[') ||
-                    c=='}' && !(stack.pop() == '{')) {
-                    return false;
+            // 배열의 인덱스 (점차 뒤로 1칸씩 밀릴 예정)
+            for (int j=i; j<i+n; j++) {
+                char c = s.charAt(j);
+                
+                // map에 없는 키는 열린괄호이므로 스택에 넣음
+                if (!map.containsKey(c)) {
+                    stack.push(c);
+                }
+                
+                else {
+                    // 닫힌 괄호 차례에 스택이 비었거나,
+                    // 괄호 종류가 매칭되지 않으면 잘못된 괄호 구성
+                    if (stack.isEmpty() ||
+                        !stack.pop().equals(map.get(c))) {
+                        continue A;
+                    }
                 }
             }
+            
+            // 스택이 비었어야 제대로 끝난것임
+            if (stack.isEmpty()) {
+                answer++;
+            }
         }
-        return stack.isEmpty();
+        
+        return answer;
     }
 }
