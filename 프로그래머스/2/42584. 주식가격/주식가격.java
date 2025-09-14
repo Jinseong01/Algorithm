@@ -1,17 +1,27 @@
+import java.util.*;
+
 class Solution {
     public int[] solution(int[] prices) {
         int n = prices.length;
         int[] answer = new int[n];
+        
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
 
-        // 배열 크기만큼 반복
-        for (int i = 0; i < n; i++) {
-            // 각 인덱스에 대해서 떨어지지 않은 시간 판단
-            for (int j = i + 1; j < n; j++) {
-                answer[i]++;
-                if (prices[j] < prices[i]) {
-                    break;
-                }
+        for (int i=1; i<n; i++) {
+            // 가격이 떨어졌다면
+            while(!stack.isEmpty() && prices[i] < prices[stack.peek()]) {
+                int j = stack.pop();
+                answer[j] = i-j;
             }
+            
+            stack.push(i);
+        }
+        
+        // 스택에 남은거 = 마지막까지 가격이 떨어지지 않은 것들
+        while (!stack.isEmpty()) {
+            int j = stack.pop();
+            answer[j] = (n-1) - j;
         }
 
         return answer;
