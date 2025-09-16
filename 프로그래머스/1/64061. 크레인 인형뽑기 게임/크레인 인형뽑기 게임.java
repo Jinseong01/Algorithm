@@ -5,7 +5,7 @@ class Solution {
         // 1. 장바구니
         Stack<Integer> stack = new Stack<>();
         
-        // 2. moves는 열의 id+1를 의미
+        // 2. moves배열은 board배열의 (열idx+1) 값임
         int count = 0;
         for (int i : moves) {
             int doll = chooseDoll(board, i);
@@ -26,6 +26,7 @@ class Solution {
         return count;
     }
     
+    // board에서 해당하는 값 선택
     private int chooseDoll(int[][] board, int idx) {
         for(int i=0; i<board.length; i++) {
             if(board[i][idx-1] != 0) {
