@@ -12,7 +12,7 @@ class Solution {
         }
 
         // 2. 배포 순서를 계산
-        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        ArrayList<Integer> list = new ArrayList<>();
         int maxDay = days[0]; // 현재 배포 기준일 (첫번째 기능으로 초기화)
         int count = 0;
 
@@ -26,16 +26,16 @@ class Solution {
             // 현재 기능의 예상 소요일 > 이전 기능의 예상 소요일
             // 현재 기능은 다음에 배포
             else {
-                deque.add(count);
+                list.add(count);
                 count = 1;
                 maxDay = days[i];
             }
         }
 
         // 4. 마지막 배포는 별도로 추가 필요
-        deque.add(count);
+        list.add(count);
 
         // 5. int[] 변환 후 반환
-        return deque.stream().mapToInt(Integer::intValue).toArray();
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }
