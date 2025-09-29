@@ -9,15 +9,15 @@ class Solution {
             dict.put(String.valueOf((char)('A' + i)), i+1);
         }
         
-        // 2. 가장 긴 문자열 & 다음 문자열 사전 검색/등록
+        // 2. 가장 긴 문자열 찾고 출력 & 다음 문자열 사전 등록
         ArrayList<Integer> answer = new ArrayList<>();
         int i = 0;
         while (i < msg.length()) {
-            // 가장 긴 문자열 출력
+            // 가장 긴 문자열 찾고 출력
             String first = find(msg, i);
             answer.add(dict.get(first));
 
-            // 다음 문자열 사전 검색 & 등록
+            // 다음 문자열 사전 등록
             int firstLen = first.length();
             int nextPos = i + firstLen;
             
@@ -26,6 +26,7 @@ class Solution {
                 dict.put(second, dict.size()+1);
             }
 
+            // 다음 사이클
             i += firstLen;
         }
         
