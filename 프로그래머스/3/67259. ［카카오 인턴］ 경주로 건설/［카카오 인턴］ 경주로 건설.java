@@ -21,11 +21,11 @@ public class Solution {
             }
         }
 
-        // 오름차순
+        // 오름차순 우선순위큐
         PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> Integer.compare(a[3], b[3]));
 
         // 시작점에서의 초기 설정 우(1), 하(2)) 방향 초기화
-        // 큐에는 순서대로 (x, y, 상하좌우 방향, 누적된 cost)
+        // 큐에는 (x, y, 상하좌우 방향, 누적된 cost)순으로 넣음
         pq.add(new int[]{0, 0, 1, 0});
         pq.add(new int[]{0, 0, 2, 0});
         cost[0][0][1] = 0;
