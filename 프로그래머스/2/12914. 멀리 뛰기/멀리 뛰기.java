@@ -1,15 +1,37 @@
 class Solution {
+
+    private long[] memo;
+
     public long solution(int n) {
-        // 1 or 2로만 이동
+        memo = new long[n+1]; // current 위치별 결과 저장
         
-        long[] dp = new long[n+1];
-        dp[0] = 1;
-        dp[1] = 1;
-        
-        for(int i=2; i<=n; i++) {
-            dp[i] = (dp[i-1] + dp[i-2]) % 1234567;
+        return dfs(0, n) % 1234567;
+    }
+
+    private long dfs(int current, int target) {
+        // 도달했으면
+        if (current == target) {
+            return 1;
         }
         
-        return dp[n];
+        // 범위 벗어나면
+        if (current > target) {
+            return 0;
+        }
+
+        // 이미 계산한 적 있으면 바로 반환
+        if (memo[current] != 0) {
+            return memo[current];
+        }
+
+
+        // 계산 후 저장
+        long count = 0;
+        count += dfs(current+1, target) % 1234567;
+        count += dfs(current+2, target) % 1234567;
+        
+        memo[current] = count;
+        
+        return count;
     }
 }
