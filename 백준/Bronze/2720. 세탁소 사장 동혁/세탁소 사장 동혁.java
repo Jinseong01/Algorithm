@@ -2,31 +2,32 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        // 화폐단위가 배수이기 때문에 그리디 가능
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-        int n = Integer.parseInt(br.readLine());
-
-        int quarter = 25;
-        int dime = 10;
-        int nickel = 5;
-        int penny = 1;
-
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < n; i++) {
+
+        int T = Integer.parseInt(br.readLine());
+
+        while (T-- > 0) {
             int money = Integer.parseInt(br.readLine());
 
-            sb.append(money / quarter + " ");
-            money %= quarter;
-            sb.append(money / dime + " ");
-            money %= dime;
-            sb.append(money / nickel + " ");
-            money %= nickel;
-            sb.append(money / penny + "\n");
+            int quarter = money / 25;
+            money %= 25;
+
+            int dime = money / 10;
+            money %= 10;
+
+            int nickel = money / 5;
+            money %= 5;
+
+            int penny = money;
+
+            sb.append(quarter).append(" ")
+                    .append(dime).append(" ")
+                    .append(nickel).append(" ")
+                    .append(penny).append("\n");
         }
 
-        bw.write(sb.toString());
-        bw.flush();
-        bw.close();
+        System.out.println(sb);
     }
 }
