@@ -3,25 +3,23 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
 
-        int n = Integer.parseInt(br.readLine());
+        // 가운데 1 (1개)
+        // layer1 -> 2~7 (6개)
+        // layer2 -> 8~19 (12개)
+        // layer3 -> 20~37 (18개)
 
-        // From 1
-        // To 2~7(=6개) -> 2개
-        // To 8~19(=12개=6*2) -> 3개
-        // To 20~37(=18개=6*3) -> 4개
-        // To 38~61(=24개=6*4) -> 5개
-        // To 62~... -> 6개
+        // N이 속하는 layerA 구하기 -> A+1
 
-        int i = 1;
+        int layer = 0;
         int range = 1;
-        while (n > range) {
-            range += 6 * i++; //6개, 12개, 18개, ...
+
+        while (N > range) {
+            layer++;
+            range = range + (6 * layer);
         }
 
-        bw.write(String.valueOf(i));
-        bw.flush();
-        bw.close();
+        System.out.println(layer+1);
     }
 }
