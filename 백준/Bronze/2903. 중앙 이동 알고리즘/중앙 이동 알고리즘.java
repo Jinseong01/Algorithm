@@ -3,21 +3,17 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
 
-        int n = Integer.parseInt(br.readLine());
+        // step0 -> 4 (2^2)
+        // step1 -> 9 (3^3) [+1]
+        // step2 -> 25 (5^2) [+2]
+        // step3 -> 25 + 20 + 36 = 81 (9^2) [+4]
+        // step4?? -> 17^2 [+8]
+        // step5?? -> 33^2 [+16]
+        
+        // stepN -> (2^N + 1) ^ 2
 
-        // 초기 : 4
-        //  n = 1 -> 9 = 3^2 = (2+1)^2
-        // n = 2 -> 25 = 5^2 = (4+1)^2
-        // n = 3 -> 49 = 9^2 = (8+1)^2
-        // n = 4 -> ?? = ?^2 = (16+1)^2
-
-        // Math.pow의 결과는 double이기 때문에 캐스팅 필요
-        int result = (int) Math.pow( Math.pow(2, n) + 1, 2);
-
-        bw.write(String.valueOf(result));
-        bw.flush();
-        bw.close();
+        System.out.println((int) Math.pow(Math.pow(2, N) + 1, 2));
     }
 }
