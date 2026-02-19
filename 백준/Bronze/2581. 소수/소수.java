@@ -3,7 +3,6 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int M = Integer.parseInt(br.readLine());
         int N = Integer.parseInt(br.readLine());
@@ -11,36 +10,34 @@ public class Main {
         int sum = 0;
         int min = Integer.MAX_VALUE;
         for (int i = M; i <= N; i++) {
-
-            if (i == 1) {
-                continue;
-            }
-
-            // 소수여부
-            boolean flag = true;
-            for (int j = 2; j < i; j++) {
-                if (i % j == 0) {
-                    flag = false;
-                    break;
-                }
-            }
-
-            if (flag) {
+            if (isPrime(i)) {
                 sum += i;
-                if(min > i) {
+                if (min == Integer.MAX_VALUE) {
                     min = i;
                 }
             }
         }
 
         if (sum == 0) {
-            bw.write("-1\n");
+            System.out.println(-1);
         }
         else {
-            bw.write(sum + "\n");
-            bw.write(min + "\n");
+            System.out.println(sum);
+            System.out.println(min);
         }
-        bw.flush();
-        bw.close();
+    }
+
+    private static boolean isPrime(int num) {
+        if (num <= 1) {
+            return false;
+        }
+
+        for (int i = 2; i * i <= num; i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
