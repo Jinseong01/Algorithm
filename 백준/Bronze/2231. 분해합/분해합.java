@@ -2,31 +2,38 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        // N의 분해합은 N과 N을 이루는 각 자리수의 합
+        // M의 분해합이 N인 경우, M을 N의 생성자라 함
+        // ex) 245의 분해합은 256(=245+2+4+5)이며, 245는 256의 생성자
+        // N의 가장 작은 생성자 구하기
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int N = Integer.parseInt(br.readLine());
-        // N의 생성자 = M + 각 자리수의 합
 
-        int M = 0;
-        for(int i = 1; i <= N; i++) {
-            int result = 0;
-            int num = i;
+        int num = 1;
+        while (num <= N) {
+            int res = calc(num);
 
-            // 자리수의 합
-            while (num > 0) {
-                result = result + num%10;
-                num /= 10;
+            if (res == N) {
+                System.out.println(num);
+                return;
             }
 
-            if (result + i == N) {
-                M = i; //현재 i가 가장 작은 생성자인 것
-                break;
-            }
+            num++;
         }
 
-        bw.write(String.valueOf(M));
-        bw.flush();
-        bw.close();
+        System.out.println(0);
+    }
+
+    private static int calc(int n) {
+        int tmp = n;
+
+        while(n > 0){
+            tmp += n % 10;
+            n = n / 10;
+        }
+
+        return tmp;
     }
 }
