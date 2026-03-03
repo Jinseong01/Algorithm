@@ -1,40 +1,59 @@
 import java.io.*;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int N = Integer.parseInt(br.readLine());
 
-        String[][] arr = new String[N][2];
-        StringTokenizer st;
+        Member[] members = new Member[N];
+
         for (int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine());
-            arr[i][0] = st.nextToken();
-            arr[i][1] = st.nextToken();
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            members[i] = new Member(Integer.parseInt(st.nextToken()), st.nextToken());
         }
 
-        Arrays.sort(arr, (e1, e2) -> {
-            if(e1[0].equals(e2[0])) {
-                return 0; //나이가 같은 경우에는 정렬순 유지
-            }
-            else {
-                return Integer.parseInt(e1[0]) - Integer.parseInt(e2[0]);
-            }
-        });
+        Arrays.sort(members, (a, b) -> a.age - b.age);
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < N; i++) {
-            sb.append(arr[i][0]).append(" ").append(arr[i][1]).append("\n");
+        for (Member m : members) {
+            sb.append(m.age).append(" ").append(m.name).append("\n");
         }
+        System.out.print(sb);
+    }
 
-        bw.write(sb.toString());
-        bw.flush();
-        bw.close();
-        br.close();
+    private static class Member {
+        int age;
+        String name;
+
+        Member(int age, String name) {
+            this.age = age;
+            this.name = name;
+        }
     }
 }
+
+//public class Main {
+//    public static void main(String[] args) throws IOException {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//
+//        int N = Integer.parseInt(br.readLine());
+//
+//        String[][] members = new String[N][2];
+//        for (int i = 0; i < N; i++) {
+//            StringTokenizer st = new StringTokenizer(br.readLine());
+//            members[i][0] = st.nextToken();
+//            members[i][1] = st.nextToken();
+//        }
+//
+//        Arrays.sort(members, (a, b) -> Integer.parseInt(a[0]) - Integer.parseInt(b[0]));
+//
+//        StringBuilder sb = new StringBuilder();
+//        for (String[] member : members) {
+//            sb.append(member[0]).append(" ").append(member[1]).append("\n");
+//        }
+//
+//        System.out.println(sb);
+//    }
+//}
