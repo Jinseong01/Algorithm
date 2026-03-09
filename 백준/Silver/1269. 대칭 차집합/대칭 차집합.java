@@ -3,41 +3,41 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        // 자연수를 원소로 갖는 공집합이 아닌 두 집합 A와 B
+        // 두 집합의 대칭 차집합의 원소의 개수
+        // 대칭 차집합 : (A-B)와 (B-A)의 합집합
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
+        int sizeA = Integer.parseInt(st.nextToken());
+        int sizeB = Integer.parseInt(st.nextToken());
 
-        Set<Integer> set1 = new HashSet<>();
-        Set<Integer> set2 = new HashSet<>();
-
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            set1.add(Integer.parseInt(st.nextToken()));
+        Set<Integer> aSet = new HashSet<>();
+        st =  new StringTokenizer(br.readLine());
+        for (int i = 0; i < sizeA; i++) {
+            aSet.add(Integer.parseInt(st.nextToken()));
         }
 
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < M; i++) {
-            set2.add(Integer.parseInt(st.nextToken()));
+        Set<Integer> bSet = new HashSet<>();
+        for (int i = 0; i < sizeB; i++) {
+            bSet.add(Integer.parseInt(st.nextToken()));
         }
 
-        int count = 0;
-        for (int value : set1) {
-            if (!set2.contains(value)) {
-                count++;
-            }
-        }
-        for (int value : set2) {
-            if (!set1.contains(value)) {
-                count++;
+        int result = 0;
+        for (int i : aSet) {
+            if (!bSet.contains(i)) {
+                result++;
             }
         }
 
-        bw.write(count + "\n");
-        bw.flush();
-        bw.close();
-        br.close();
+        for (int i : bSet) {
+            if (!aSet.contains(i)) {
+                result++;
+            }
+        }
+
+        System.out.println(result);
     }
 }
