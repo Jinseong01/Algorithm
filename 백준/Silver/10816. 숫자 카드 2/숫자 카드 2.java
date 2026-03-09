@@ -1,43 +1,33 @@
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        // 상근이가 가진 N개의 숫자 카드
+        // M개의 정수에 대해 각 숫자 카드를 상근이가 몇개 가지고 있는지
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int N = Integer.parseInt(br.readLine());
 
         Map<Integer, Integer> map = new HashMap<>();
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            int a = Integer.parseInt(st.nextToken());
-            if (map.containsKey(a)) {
-                map.put(a, map.get(a) + 1);
-            }
-            else {
-                map.put(a, 1);
-            }
+            int num = Integer.parseInt(st.nextToken());
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
 
         int M = Integer.parseInt(br.readLine());
-        st = new StringTokenizer(br.readLine());
+
         StringBuilder sb = new StringBuilder();
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < M; i++) {
-            int a = Integer.parseInt(st.nextToken());
-            if (map.containsKey(a)) {
-                sb.append(map.get(a)).append(" ");
-            }
-            else {
-                sb.append(0).append(" ");
-            }
+            int target = Integer.parseInt(st.nextToken());
+            int count = map.getOrDefault(target, 0);
+
+            sb.append(count).append(" ");
         }
 
-        bw.write(sb.toString());
-        bw.flush();
-        bw.close();
-        br.close();
+        System.out.println(sb);
     }
 }
