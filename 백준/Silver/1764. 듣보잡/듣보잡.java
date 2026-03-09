@@ -2,39 +2,35 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
+        // 듣도 못한 사람의 명단과, 보도 못한 사람의 명단이 주어질 때, 듣도 보도 못한 사람의 명단을 구하기
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
+        int N =  Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        Set<String> set = new HashSet<>();
-        List<String> result = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
-            String name = br.readLine();
-            set.add(name);
+        Set<String> hear = new HashSet<>(N);
+        for(int i = 0; i < N; i++){
+            hear.add(br.readLine());
         }
 
-        int count = 0;
-        for (int i = 0; i < M; i++) {
-            String name = br.readLine();
-            if (set.contains(name)) {
-                count++;
-                result.add(name);
+        List<String> result = new ArrayList<>();
+        for(int i = 0; i < M; i++){
+            String see = br.readLine();
+            if(hear.contains(see)){
+                result.add(see);
             }
         }
 
         Collections.sort(result);
-
-         bw.write(count + "\n");
-        for (String name : result) {
-            bw.write(name + '\n');
+        StringBuilder sb = new StringBuilder();
+        sb.append(result.size()).append("\n");
+        for(String name : result){
+            sb.append(name).append("\n");
         }
 
-        bw.flush();
-        bw.close();
-        br.close();
+        System.out.print(sb);
     }
 }
