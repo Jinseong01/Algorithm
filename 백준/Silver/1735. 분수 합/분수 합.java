@@ -1,38 +1,33 @@
 import java.io.*;
-import java.util.*;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        // 두 분수가 주어졌을 때, 그 합을 기약분수의 형태로 구하기
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int a1 = Integer.parseInt(st.nextToken());
-        int b1 = Integer.parseInt(st.nextToken());
+        int numerator1 = Integer.parseInt(st.nextToken());
+        int denominator1 = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
-        int a2 = Integer.parseInt(st.nextToken());
-        int b2 = Integer.parseInt(st.nextToken());
+        int numerator2 = Integer.parseInt(st.nextToken());
+        int denominator2 = Integer.parseInt(st.nextToken());
 
-        // 덧셈
-        int a3 = a1 * b2 + a2 * b1;
-        int b3 = b1 * b2;
+        int numerator3 = numerator1 * denominator2 + numerator2 * denominator1;
+        int denominator3 = denominator1 * denominator2;
 
-        // 기약분수를 위해 최대공약수를 구함
-        int gcd = gcd(a3, b3);
-        
-        bw.write(a3/gcd + " " + b3/gcd + "\n");
-        bw.flush();
-        bw.close();
-        br.close();
+        int gcd = GCD(numerator3, denominator3);
+
+        System.out.println(numerator3/gcd + " " + denominator3/gcd);
     }
 
-    private static int gcd(int b1, int b2) {
-        if (b2 == 0) {
-            return b1;
+    private static int GCD(int a, int b) {
+        if (b == 0) {
+            return a;
         }
-        else {
-            return gcd(b2, b1 % b2);
-        }
+
+        return GCD(b, a % b);
     }
 }
