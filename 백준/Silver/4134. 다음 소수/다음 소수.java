@@ -2,41 +2,38 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        // n보다 크거나 같은 소수 중 갖아 작은 소수
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int T = Integer.parseInt(br.readLine());
 
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < T; i++) {
-            long N = Long.parseLong(br.readLine());
+            long n = Long.parseLong(br.readLine());
 
-            while (!isPrime(N)) {
-                N++;
+            while (true) {
+                if(isPrime(n)) {
+                    sb.append(n).append("\n");
+                    break;
+                }
+                n++;
             }
-
-            bw.write(N + "\n");
         }
 
-        bw.flush();
-        bw.close();
-        br.close();
+        System.out.println(sb);
     }
 
-    // 소수 판별
     private static boolean isPrime(long n) {
-        // 0, 1
-        if (n < 2) {
+        if (n <= 1) {
             return false;
         }
 
-        // 소수가 아닌 경우
-        for (long i = 2; i <= Math.sqrt(n); i++) {
+        for (long i = 2; i * i <= n; i++) {
             if (n % i == 0) {
                 return false;
             }
         }
-
-        // 소수인 경우
         return true;
     }
 }
