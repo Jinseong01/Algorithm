@@ -1,51 +1,37 @@
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        // M이상 N이하인 모든 소수
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         int M = Integer.parseInt(st.nextToken());
         int N = Integer.parseInt(st.nextToken());
 
+        StringBuilder sb = new StringBuilder();
         for (int i = M; i <= N; i++) {
-            if(isPrime(i)) {
-                bw.write(i + "\n");
+            if (isPrime(i)) {
+                sb.append(i).append("\n");
             }
         }
 
-        bw.flush();
-        bw.close();
-        br.close();
+        System.out.println(sb);
     }
 
-    // 소수 판별
-    private static boolean isPrime(int n) {
-        // 0, 1
-        if (n <= 1) {
+    private static boolean isPrime(int a) {
+        if (a <= 1) {
             return false;
         }
 
-        // 2
-        if (n == 2) {
-            return true;
-        }
-
-        // 2를 제외한 짝수는 소수가 아님
-        if (n % 2 == 0) {
-            return false;
-        }
-
-        // 나머지 소수가 아닌 경우
-        for (int i = 3; i <= Math.sqrt(n); i+=2) {
-            if (n % i == 0) {
+        for (int i = 2; i * i <= a; i++) {
+            if (a % i == 0) {
                 return false;
             }
         }
 
-        // 나머지 소수인 경우
         return true;
     }
 }
