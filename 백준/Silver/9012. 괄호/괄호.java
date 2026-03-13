@@ -4,40 +4,62 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
 
         int T = Integer.parseInt(br.readLine());
-
-
         for (int i = 0; i < T; i++) {
-            Stack<Character> stack = new Stack<>();
+            String input = br.readLine();
+            int count = 0;
+            boolean valid = true;
 
-            String s = br.readLine();
-
-            for (char c : s.toCharArray()) {
+            for(char c : input.toCharArray()) {
                 if (c == '(') {
-                    stack.push(c);
+                    count++;
                 }
                 else {
-                    if (stack.isEmpty()) {
-                        stack.push(c);
-                        break;
-                    }
-                    else {
-                        stack.pop();
-                    }
+                    count--;
+                }
+
+                if (count < 0) {
+                    valid = false;
+                    break;
                 }
             }
-            if (stack.isEmpty()) {
-                bw.write("YES\n");
-            }
-            else {
-                bw.write("NO\n");
-            }
+
+            sb.append(valid && count == 0 ? "YES" : "NO").append("\n");
         }
 
-        bw.flush();
-        bw.close();
-        br.close();
+        System.out.println(sb);
     }
 }
+
+//public class Main {
+//    public static void main(String[] args) throws IOException {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringBuilder sb = new StringBuilder();
+//
+//        int T = Integer.parseInt(br.readLine());
+//        for (int i = 0; i < T; i++) {
+//            Stack<Character> stack = new Stack<>();
+//            String input = br.readLine();
+//            boolean valid = true;
+//
+//            for(char c : input.toCharArray()) {
+//                if (c == '(') {
+//                    stack.push(c);
+//                }
+//                else {
+//                    if (stack.isEmpty()) {
+//                        valid = false;
+//                        break;
+//                    }
+//                    stack.pop();
+//                }
+//            }
+//
+//            sb.append(valid && stack.isEmpty() ? "YES" : "NO").append("\n");
+//        }
+//
+//        System.out.println(sb);
+//    }
+//}
