@@ -4,44 +4,27 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        Stack<Integer> stack = new Stack<>();
 
         int N = Integer.parseInt(br.readLine());
 
-        Stack<Integer> stack = new Stack<>();
-
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int count = 1;
-
+        int student = 1;
         for (int i = 0; i < N; i++) {
-            int x = Integer.parseInt(st.nextToken());
+            int num = Integer.parseInt(st.nextToken());
 
-            // 입려에 대해 검사
-            if (count == x) {
-                count++;
+            if (num == student) {
+                student++;
+                while (!stack.isEmpty() && stack.peek() == student) {
+                    stack.pop();
+                    student++;
+                }
             }
             else {
-                stack.push(x);
-            }
-
-            // 스택 검사
-            while (!stack.isEmpty() && stack.peek() == count) {
-                stack.pop();
-                count++;
+                stack.push(num);
             }
         }
 
-
-        if (stack.isEmpty()) {
-            bw.write("Nice\n");
-        }
-        else {
-            bw.write("Sad\n");
-        }
-
-
-        bw.flush();
-        bw.close();
-        br.close();
+        System.out.println(stack.isEmpty() ? "Nice" : "Sad");
     }
 }
