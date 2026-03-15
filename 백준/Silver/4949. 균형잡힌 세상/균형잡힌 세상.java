@@ -4,51 +4,39 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
 
         while (true) {
-            Stack<Character> stack = new Stack<>();
-
             String input = br.readLine();
 
             if (input.equals(".")) {
                 break;
             }
 
+            Stack<Character> stack = new Stack<>();
+            boolean valid = true;
+
             for (char c : input.toCharArray()) {
-                switch (c) {
-                    case '(':
-                    case '[':
-                        stack.push(c);
+                if (c == '(' || c == '[') {
+                    stack.push(c);
+                } else if (c == ')') {
+                    if (stack.isEmpty() || stack.peek() != '(') {
+                        valid = false;
                         break;
-                    case ')':
-                        if (!stack.isEmpty() && stack.peek() == '(') {
-                            stack.pop();
-                        }
-                        else {
-                            stack.push(c);
-                        }
+                    }
+                    stack.pop();
+                } else if (c == ']') {
+                    if (stack.isEmpty() || stack.peek() != '[') {
+                        valid = false;
                         break;
-                    case ']':
-                        if (!stack.isEmpty() && stack.peek() == '[') {
-                            stack.pop();
-                        }
-                        else {
-                            stack.push(c);
-                        }
-                        break;
+                    }
+                    stack.pop();
                 }
             }
-            if (stack.isEmpty()) {
-                bw.write("yes\n");
-            }
-            else {
-                bw.write("no\n");
-            }
+
+            sb.append(stack.isEmpty() && valid ? "yes" : "no").append("\n");
         }
 
-        bw.flush();
-        bw.close();
-        br.close();
+        System.out.print(sb);
     }
 }
