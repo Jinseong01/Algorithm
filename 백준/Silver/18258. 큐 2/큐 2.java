@@ -1,64 +1,39 @@
 import java.io.*;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-        Deque<Integer> deque = new LinkedList<>();
+        Deque<Integer> queue = new ArrayDeque<>();
+        StringBuilder sb = new StringBuilder();
 
         int N = Integer.parseInt(br.readLine());
         for (int i = 0; i < N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
+            String cmd = st.nextToken();
 
-            String order = st.nextToken();
-            switch (order) {
+            switch (cmd) {
                 case "push":
-                    deque.add(Integer.parseInt(st.nextToken()));
+                    queue.add(Integer.parseInt(st.nextToken()));
                     break;
                 case "pop":
-                    if (!deque.isEmpty()) {
-                        bw.write(deque.poll()+"\n");
-                    }
-                    else {
-                        bw.write("-1\n");
-                    }
+                    sb.append(queue.isEmpty() ? -1 : queue.poll()).append("\n");
                     break;
                 case "size":
-                    bw.write(deque.size()+"\n");
+                    sb.append(queue.size()).append("\n");
                     break;
                 case "empty":
-                    if (deque.isEmpty()) {
-                        bw.write("1\n");
-                    }
-                    else {
-                        bw.write("0\n");
-                    }
+                    sb.append(queue.isEmpty() ? 1 : 0).append("\n");
                     break;
                 case "front":
-                    if (!deque.isEmpty()) {
-                        bw.write(deque.peekFirst() + "\n");
-                    }
-                    else {
-                        bw.write("-1\n");
-                    }
+                    sb.append(queue.isEmpty() ? -1 : queue.peek()).append("\n");
                     break;
                 case "back":
-                    if (!deque.isEmpty()) {
-                        bw.write(deque.peekLast() + "\n");
-                    }
-                    else {
-                        bw.write("-1\n");
-                    }
-                    break;
+                    sb.append(queue.isEmpty() ? -1 : queue.peekLast()).append("\n");
+                    break;            
             }
         }
-        bw.flush();
-        bw.close();
-        br.close();
+
+        System.out.print(sb);
     }
 }
