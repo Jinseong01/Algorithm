@@ -5,62 +5,37 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
+        Deque<Integer> queue = new ArrayDeque<>();
 
-        Deque<Integer> deque = new ArrayDeque<>();
-
-        StringTokenizer st;
         int N = Integer.parseInt(br.readLine());
-        int X = 0;
-
         for (int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine());
-            int order = Integer.parseInt(st.nextToken());
-            switch (order) {
-                case 1:
-                    X = Integer.parseInt(st.nextToken());
-                    deque.addFirst(X);
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            String cmd = st.nextToken();
+
+            switch (cmd) {
+                case "1":
+                    queue.addFirst(Integer.parseInt(st.nextToken()));
                     break;
-                case 2:
-                    X = Integer.parseInt(st.nextToken());
-                    deque.addLast(X);
+                case "2":
+                    queue.add(Integer.parseInt(st.nextToken()));
                     break;
-                case 3:
-                    if (!deque.isEmpty()) {
-                        sb.append(deque.pollFirst()).append("\n");
-                    } else {
-                        sb.append("-1\n");
-                    }
+                case "3":
+                    sb.append(queue.isEmpty() ? -1 : queue.poll()).append("\n");
                     break;
-                case 4:
-                    if (!deque.isEmpty()) {
-                        sb.append(deque.pollLast()).append("\n");
-                    } else {
-                        sb.append("-1\n");
-                    }
+                case "4":
+                    sb.append(queue.isEmpty() ? -1 : queue.pollLast()).append("\n");
                     break;
-                case 5:
-                    sb.append(deque.size()).append("\n");
+                case "5":
+                    sb.append(queue.size()).append("\n");
                     break;
-                case 6:
-                    if (deque.isEmpty()) {
-                        sb.append("1\n");
-                    } else {
-                        sb.append("0\n");
-                    }
+                case "6":
+                    sb.append(queue.isEmpty() ? 1 : 0).append("\n");
                     break;
-                case 7:
-                    if (!deque.isEmpty()) {
-                        sb.append(deque.peekFirst()).append("\n");
-                    } else {
-                        sb.append("-1\n");
-                    }
+                case "7":
+                    sb.append(queue.isEmpty() ? -1 : queue.peek()).append("\n");
                     break;
-                case 8:
-                    if (!deque.isEmpty()) {
-                        sb.append(deque.peekLast()).append("\n");
-                    } else {
-                        sb.append("-1\n");
-                    }
+                case "8":
+                    sb.append(queue.isEmpty() ? -1 : queue.peekLast()).append("\n");
                     break;
             }
         }
