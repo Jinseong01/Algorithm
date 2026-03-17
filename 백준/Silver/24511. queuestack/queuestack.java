@@ -8,55 +8,47 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        // 자료구조 형태 (0이면 큐, 1이면 스택)
-        int [] arrA = new int[N];
+        int[] A = new int[N];
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            arrA[i] = Integer.parseInt(st.nextToken());
+            A[i] = Integer.parseInt(st.nextToken());
         }
 
-        // 자료구조 원소
-        int [] arrB = new int[N];
+        int[] B = new int[N];
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            arrB[i] = Integer.parseInt(st.nextToken());
+            B[i] = Integer.parseInt(st.nextToken());
         }
 
-
-        int M = Integer.parseInt(br.readLine());
-
-        // 입력값
-        int [] arrC = new int[M];
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < M; i++) {
-            arrC[i] = Integer.parseInt(st.nextToken());
-        }
-
-        // 스택의 경우, 입력값 삽입 -> 원소 pop하면 입력값이 다시 나옴
-        // = 변화 없음
-        // 큐의 경우, 입력값 삽입 -> 원소 pop하면 다른값이 나옴
-        // = 변화 있음
-        // -> 큐만 고려
-
-        // ex)
-        // 0 1 1 0은 [큐 스택 스택 큐] 인 상황으로
-        // 첫번째 입력값 -> 첫번째 큐의 값 / 첫번째 큐의 값 -> 두번째 큐의 값
-        // 결과 : 두번째 큐의 값 인 것
-        // 결국 입력값이 순서대로 돌아가며 큐의 값을 순차적으로 1칸씩 밀어낸다고 생각하면 됨
-
-        Queue<Integer> queue = new ArrayDeque<>();
-
-        for (int i = N - 1; i >= 0; i--) {
-            if (arrA[i] == 0) {
-                queue.add(arrB[i]);
+        // 각 큐의 원소가 1개씩 -> 하나의 Deque로 관리
+        Deque<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < N; i++) {
+            if (A[i] == 0) {
+                queue.add(B[i]);
             }
         }
 
+        int M = Integer.parseInt(br.readLine());
+
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < M; i++) {
-            queue.add(arrC[i]);
-            sb.append(queue.poll()).append(" ");
+            // 스택은 입력값을 그대로 통과시키기 때문에 무시
+            // 입력값 -> 가장 앞에 존재하는 큐에 저장
+            // 출력값 -> 가장 뒤에 존재하는 큐의 기존값을 사용
+            int c = Integer.parseInt(st.nextToken());
+
+            // 큐가 X = 모든 자료구조가 스택 -> 입력값 그대로 출력
+            if (queue.isEmpty()) {
+                sb.append(c);
+            }
+            // 큐가 존재함 -> 마지막 큐의 값을 출력, 입력값은 첫 번째 큐에 저장
+            else {
+                sb.append(queue.pollLast());
+                queue.addFirst(c);
+            }
+            sb.append(" ");
         }
 
-        System.out.println(sb);
+        System.out.print(sb);
     }
 }
