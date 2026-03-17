@@ -1,24 +1,25 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        StringTokenizer st = new StringTokenizer(sc.nextLine());
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
         int N = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
+        int K  = Integer.parseInt(st.nextToken());
 
-        // 이항계수
-        // N개 중에서 K개를 선택하는 방법의 수
-        System.out.println(factorial(N) / (factorial(N - K) * factorial(K)));
+        System.out.println(combination(N, K));
     }
 
-    private static int factorial(int n) {
-        if (n <= 1) {
-            return 1;
+    private static int combination(int n, int k) {
+        int a = 1, b = 1;
+        for (int i = 0; i < k; i++) {
+            a *= (n - i);
+            b *= (i + 1);
         }
-        else {
-            return n * factorial(n - 1);
-        }
+
+        return a / b;
     }
 }
