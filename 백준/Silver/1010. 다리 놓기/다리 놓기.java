@@ -2,48 +2,93 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+
+    static long[][] dp = new long[31][31];
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        StringTokenizer st;
         StringBuilder sb = new StringBuilder();
 
         int T = Integer.parseInt(br.readLine());
         for (int i = 0; i < T; i++) {
-            st = new StringTokenizer(br.readLine());
+            StringTokenizer st = new StringTokenizer(br.readLine());
             int N = Integer.parseInt(st.nextToken());
             int M = Integer.parseInt(st.nextToken());
 
-            // M개 중 N개를 선택, 중복 X = 조합
-            // 다리이기 때문에 겹치면 X -> 순서를 신경쓰지 않으므로 상관 X
-            // ex) (1,2,3) (1,3,2)를 구분하지 않고 동일한 것으로 취급
-            // 즉, 겹치는 경우는 자연스레 제외됨
-            // mCn
-            // N,M<=30이여서 일반적인 해결법으로는 해결 X
-
-            // nCr = n*(n-1)*(n-2)*...*(n-r+1) / r!
-            // 10C3 = 10*9*8 / 3*!
-
-            sb.append(comb(M, N)).append("\n");
+            sb.append(combination(M, N)).append("\n");
         }
-        System.out.println(sb);
+
+        System.out.print(sb);
     }
 
-    private static long comb(int m, int n) {
-        // 10C7 = 10C3
-        if (n > m - n) {
-            n = m - n;
+    private static long combination(int n, int r) {
+        if (r == 0 || n == r) {
+            return 1;
         }
 
-        long res = 1;
-
-        for(int i = 1; i <= n; i++) {
-            res = res * (m - i + 1) / i;
-            // 10/1
-            // 10*9 / 1*2
-            // 10*9*8 / 1*2*3
+        // 이미 계산된 값이면 재사용
+        if (dp[n][r] != 0) {
+            return dp[n][r];
         }
 
-        return res;
+        // 없으면 계산 후 저장
+        // nCr = (n-1)C(r-1) + (n-1)Cr
+        return dp[n][r] = combination(n - 1, r - 1) + combination(n - 1, r);
     }
 }
+
+//public class Main {
+//    public static void main(String[] args) throws IOException {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringBuilder sb = new StringBuilder();
+//
+//        int T = Integer.parseInt(br.readLine());
+//        for (int i = 0; i < T; i++) {
+//            StringTokenizer st = new StringTokenizer(br.readLine());
+//            int N = Integer.parseInt(st.nextToken());
+//            int M = Integer.parseInt(st.nextToken());
+//
+//            sb.append(combination(M, N)).append("\n");
+//        }
+//
+//        System.out.print(sb);
+//    }
+//
+//    private static long combination(int n, int r) {
+//        r = Math.min(r, n - r);
+//
+//        long result = 1;
+//        for (int i = 1; i <= r; i++) {
+//            result = result * (n - i + 1) / i;
+//        }
+//
+//        return result;
+//    }
+//}
+
+//public class Main {
+//    public static void main(String[] args) throws IOException {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringBuilder sb = new StringBuilder();
+//
+//        int T = Integer.parseInt(br.readLine());
+//        for (int i = 0; i < T; i++) {
+//            StringTokenizer st = new StringTokenizer(br.readLine());
+//            int N = Integer.parseInt(st.nextToken());
+//            int M = Integer.parseInt(st.nextToken());
+//
+//            sb.append(combination(M, N)).append("\n");
+//        }
+//
+//        System.out.print(sb);
+//    }
+//
+//    private static long combination(int n, int r) {
+//        long result = 1;
+//        for (int i = 1; i <= r; i++) {
+//            result = result * (n - i + 1) / i;
+//        }
+//
+//        return result;
+//    }
+//}
