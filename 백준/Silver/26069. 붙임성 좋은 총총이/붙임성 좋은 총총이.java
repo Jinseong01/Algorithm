@@ -4,27 +4,22 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Set<String> set = new HashSet<>();
+        set.add("ChongChong");
 
         int N = Integer.parseInt(br.readLine());
-
-        StringTokenizer st;
-        String user1, user2;
-
-        Set<String> dance = new HashSet<>();
-        dance.add("ChongChong");
-
         for (int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine());
+            StringTokenizer st = new StringTokenizer(br.readLine());
 
-            user1 = st.nextToken();
-            user2 = st.nextToken();
+            String a = st.nextToken();
+            String b = st.nextToken();
 
-            if (dance.contains(user1) || dance.contains(user2)) {
-                dance.add(user1);
-                dance.add(user2);
+            if (set.contains(a) || set.contains(b)) {
+                set.add(a);
+                set.add(b);
             }
         }
 
-        System.out.println(dance.size());
+        System.out.println(set.size());
     }
 }
