@@ -4,52 +4,48 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-
-        int N = Integer.parseInt(br.readLine());
         Map<Integer, Integer> map = new HashMap<>();
 
-        int [] arr = new int[N];
+        int N = Integer.parseInt(br.readLine());
+        int[] arr = new int[N];
         int sum = 0;
-
         for (int i = 0; i < N; i++) {
-            int num = Integer.parseInt(br.readLine());
-            arr[i] = num;
-            sum += arr[i];
+            arr[i] = Integer.parseInt(br.readLine());
 
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            sum += arr[i];
+            map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
         }
 
         Arrays.sort(arr);
 
-        // 1. 평균
-        sb.append(Math.round((double) sum / N)).append("\n");
+        StringBuilder sb = new StringBuilder();
 
-        // 2. 중앙값
+        // 산술평균
+        sb.append(Math.round((float) sum / N)).append("\n");
+//        sb.append(Math.round((float) Arrays.stream(arr).sum() / N)).append("\n");
+
+        // 중앙값
         sb.append(arr[N / 2]).append("\n");
 
-        // 3. 최빈값
-        int maxValue = Collections.max(map.values());
-        List<Integer> keys = new ArrayList<>();
+        // 최빈값
+        int max = 0;
+        for (int value : map.values()) {
+            max = Math.max(max, value);
+        }
 
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            if (entry.getValue() == maxValue) {
-                keys.add(entry.getKey());
+        List<Integer> list = new ArrayList<>();
+        for (int key : map.keySet()) {
+            if (map.get(key) == max) {
+                list.add(key);
             }
         }
 
-        Collections.sort(keys);
-        if (keys.size() > 1) {
-            sb.append(keys.get(1)).append("\n");
-        }
-        else {
-            sb.append(keys.get(0)).append("\n");
-        }
+        Collections.sort(list);
+        sb.append(list.size() == 1 ? list.get(0) : list.get(1)).append("\n");
 
-        // 4. 범위
-        sb.append(arr[N-1]-arr[0]).append("\n");
+        // 범위
+        sb.append(arr[N - 1] - arr[0]).append("\n");
 
-        
-        System.out.println(sb.toString());
+        System.out.print(sb);
     }
 }
