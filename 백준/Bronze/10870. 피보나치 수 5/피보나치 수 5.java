@@ -1,23 +1,20 @@
-import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        int N = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println(fibonacci(N));
+        int n = Integer.parseInt(br.readLine());
+
+        System.out.println(fibonacci(n));
     }
 
     private static int fibonacci(int n) {
-        if (n == 0) {
-            return 0;
+        if (n <= 1) {
+            return n;
         }
-        else if (n == 1) {
-            return 1;
-        }
-        else {
-            return fibonacci(n - 2) + fibonacci(n - 1);
-        }
+
+        return fibonacci(n-1) + fibonacci(n-2);
     }
 }
