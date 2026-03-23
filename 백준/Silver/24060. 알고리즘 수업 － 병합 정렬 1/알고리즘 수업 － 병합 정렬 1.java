@@ -2,81 +2,76 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int[] sequence;
-    static int K;
+
     static int count = 0;
     static int result = -1;
+    static int K;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
 
+        StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
 
-        sequence = new int[N];
+        int[] A = new int[N];
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            sequence[i] = Integer.parseInt(st.nextToken());
+            A[i] = Integer.parseInt(st.nextToken());
         }
 
-        merge_sort(0, N - 1);
+        mergeSort(A, 0, N-1);
 
         System.out.println(result);
     }
 
-    private static void merge_sort(int p, int r) {
-        if (p < r) {
-            int q = (p + r) / 2;
-            merge_sort(p, q); // 왼쪽
-            merge_sort(q + 1, r); // 오른쪽
-            merge(p, q, r); // 병합
+    private static void mergeSort(int[] A, int left, int right) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+            mergeSort(A, left, mid);  // 앞쪽 정렬
+            mergeSort(A, mid+1, right);  // 뒤쪽 정렬
+            merge(A, left, mid, right);  // 병합
         }
     }
 
-    /*
-     p : 시작 idx
-     q : 중간 idx
-     r : 마지막 idx
-    */
-    private static void merge(int p, int q, int r) {
-        int[] tmp = new int[r - p + 1];
-        int i = p;
-        int j = q + 1; // 분할 배열 시작 idx
+    static void merge(int[] A, int left, int mid, int right) {
+        int[] tmp = new int[right - left + 1];
+        int i = left;
+        int j = mid + 1;
         int t = 0;
 
-        while ( i <= q && j <= r) {
-            // 왼쪽 배열의 숫자가 오른쪽 배열보다 같거나 작으면
-            if (sequence[i] <= sequence[j]) {
-                tmp[t++] = sequence[i++];
+        // 비교하면서 tmp에 오름차순 저장
+        while (i<=mid && j<=right) {
+            if (A[i] <= A[j]) {
+                tmp[t++] = A[i++];
             }
-            // 왼쪽 배열의 숫자가 오른쪽 배열보다 크면
             else {
-                tmp[t++] = sequence[j++];
+                tmp[t++] = A[j++];
             }
         }
 
-        // 왼쪽 배열이 남은 경우
-        while (i <= q) {
-            tmp[t++] = sequence[i++];
+        // 앞쪽 남은부분 저장
+        while (i <= mid) {
+            tmp[t++] = A[i++];
         }
 
-        // 오른쪽 배열이 남은 경우
-        while (j <= r) {
-            tmp[t++] = sequence[j++];
+        // 뒤쪽 남은부분 저장
+        while (j <= right) {
+            tmp[t++] = A[j++];
         }
 
-        // 저장
-        for (i = p; i <= r; i++) {
+        // tmp를 A에 복사 & K번째 저장되는 수 확인
+        i = left; t = 0;
+        while (i<=right) {
+            A[i] = tmp[t];
             count++;
-            if (count == K) {
-                result = tmp[i - p];
-                break;
+
+            if (count==K) {
+                result = A[i];
+                return;
             }
 
-            sequence[i] = tmp[i - p];
+            i++; t++;
         }
-
     }
-
 }
