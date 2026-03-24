@@ -1,52 +1,53 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-    static char[][] map;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        map = new char[N][N];
+    static char[][] board;
 
-        star(N, 0, 0);
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        for (char[] row : map) {
-            for (char ch : row) {
-                sb.append(ch);
+
+        int N = Integer.parseInt(br.readLine());
+
+        board = new char[N][N];
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                board[i][j] = ' ';
+            }
+        }
+
+        draw(0, 0, N);
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                sb.append(board[i][j]);
             }
             sb.append('\n');
         }
+
         System.out.print(sb);
     }
 
-    // 별 찍기 함수
-    public static void star(int size, int x, int y) {
+    private static void draw(int x, int y, int size) {
+        // 더이상 나눌 수 없으면 종료
         if (size == 1) {
-            map[x][y] = '*';
+            board[x][y] = '*';
             return;
         }
 
-        int div = size / 3;
+        int newSize = size / 3;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
+                
+                // 가운데 블록은 공백
                 if (i == 1 && j == 1) {
-                    // 가운데 부분 공백 채우기
-                    fillBlank(div, x + i * div, y + j * div);
-                } else {
-                    // 나머지 부분 재귀
-                    star(div, x + i * div, y + j * div);
+                    continue;
                 }
-            }
-        }
-    }
 
-    // 공백 채우기 함수
-    public static void fillBlank(int size, int x, int y) {
-        for (int i = x; i < x + size; i++) {
-            for (int j = y; j < y + size; j++) {
-                map[i][j] = ' ';
+                draw(x + i * newSize, y + j * newSize, newSize);
             }
         }
     }
