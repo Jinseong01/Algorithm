@@ -12,7 +12,7 @@ class Solution {
             pq.add(work);
         }
 
-        while(n > 0 && !pq.isEmpty()) {
+        while(n>0) {
             int max = pq.poll();
             if(max == 0) {
                 break;
